@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'materials.apps.MaterialsConfig',
     'users.apps.UsersConfig',
+    'staff.apps.StaffConfig',
 ]
 
 MIDDLEWARE = [
