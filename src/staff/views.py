@@ -11,3 +11,9 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user.pk)
+
+
+class StaffView(LoginRequiredMixin, generic.ListView):
+    template_name = 'staff/staff.html'
+    model = Employee
+    login_url = 'login'

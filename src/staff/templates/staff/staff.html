@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Список сотрудников{% endblock %}
+
+{% block content_title %}Список сотрудников{% endblock %}
+
+{% block content %}
+{% for employee in employee_list %}
+<div class="col-md-auto mb-5">
+    <div style="width: 18rem">
+        <img src="https://via.placeholder.com/100" width="100" height="100" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ employee.fio }}</h5>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
