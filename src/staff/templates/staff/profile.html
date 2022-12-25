@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_additional %}
+<link rel="stylesheet" href="{% static 'staff/css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}Профиль{% endblock %}
+
+{% block content_title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span class="item-title">ФИО</span><br/>
+            {{ employee.fio }}
+        </li>
+        <li class="list-group-item">
+            <span class="item-title">Почта</span><br/>
+            {{ employee.user.email }}
+        </li>
+        <li class="list-group-item">
+            <span class="item-title">Отдел</span><br/>
+            {{ employee.department }}
+        </li>
+        <li class="list-group-item">
+            <span class="item-title">Расширенный доступ</span><br/>
+            {% if employee.extended_access %}
+            Да
+            {% else %}
+            Нет
+            {% endif %}
+        </li>
+    </ul>
+</div>
+{% endblock %}

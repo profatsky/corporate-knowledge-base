@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
-# Create your views here.
+from staff.models import Employee
+
+
+class ProfileView(LoginRequiredMixin, generic.DetailView):
+    template_name = 'staff/profile.html'
+    model = Employee
+    login_url = 'login'
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user.pk)
