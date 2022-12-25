@@ -12,9 +12,11 @@
 </head>
 <body>
 <div class="container">
+    {% if user.is_authenticated %}
     {% include 'inc/_nav.html' %}
+    {% endif %}
 
-    <h1 class="text-center mb-5">
+    <h1 class="text-center mb-5 mt-5">
         {% block content_title %}{% endblock %}
     </h1>
     <div class="row">
