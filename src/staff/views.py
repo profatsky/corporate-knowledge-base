@@ -4,7 +4,7 @@ from django.views import generic
 from staff.models import Employee
 
 
-class ProfileView(LoginRequiredMixin, generic.DetailView):
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'staff/profile.html'
     model = Employee
     login_url = 'login'
@@ -13,7 +13,7 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
         return self.model.objects.filter(user=self.kwargs.get('pk'))
 
 
-class StaffView(LoginRequiredMixin, generic.ListView):
+class EmployeeListView(LoginRequiredMixin, generic.ListView):
     template_name = 'staff/staff.html'
     model = Employee
     login_url = 'login'
