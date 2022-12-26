@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Каталоги{% endblock %}
+
+{% block content_title %}Список доступных каталогов{% endblock %}
+
+{% block content %}
+{% for catalog in catalog_list %}
+<a class="col-md-auto mb-5" href="{% url 'documents' catalog.pk %}">
+    <div style="width: 18rem">
+        <img src="{% static 'materials/img/folder.svg' %}" width="100" height="100" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ catalog.name }}</h5>
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}

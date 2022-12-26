@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Документы{% endblock %}
+
+{% block content_title %}Список доступных документов{% endblock %}
+
+{% block content %}
+{% for document in document_list %}
+<a class="col-md-auto mb-5" href="{{ document.view_path }}">
+    <div style="width: 18rem">
+        <img src="{% static 'materials/img/document.svg' %}" width="100" height="100" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ document.name }}</h5>
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}
