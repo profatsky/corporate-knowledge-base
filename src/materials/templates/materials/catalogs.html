@@ -6,6 +6,7 @@
 {% block content_title %}Список доступных каталогов{% endblock %}
 
 {% block content %}
+{% if catalog_list %}
 {% for catalog in catalog_list %}
 <a class="col-md-auto mb-5" href="{% url 'documents' catalog.pk %}">
     <div style="width: 18rem">
@@ -16,4 +17,7 @@
     </div>
 </a>
 {% endfor %}
+{% else %}
+<p class="text-center">Не найдено ни одного каталога</p>
+{% endif %}
 {% endblock %}

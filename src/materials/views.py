@@ -24,11 +24,14 @@ class DocumentListView(generic.ListView):
     login_url = 'login'
 
     def get_queryset(self):
-        documents = Document.objects.filter(catalog__pk=self.kwargs.get('catalog_pk'))
+        catalog = Catalog.objects.filter(pk=self.kwargs.get('catalog_pk'))
+        if not catalog:
+            raise Http404
+        documents = Document.objects.filter(catalog__pk=catalog[0].pk)
         if not self.request.user.is_staff:
             documents = documents.filter(Q(is_private__lte=self.request.user.employee.extended_access))
-        if not documents:
-            raise Http404
+            if not documents:
+                raise Http404
         doc_viewer_path = 'https://docs.yandex.ru/docs/view?url='
         for document in documents:
             document.view_path = doc_viewer_path + self.request.build_absolute_uri(document.disk_path.url)

@@ -6,6 +6,7 @@
 {% block content_title %}Список доступных документов{% endblock %}
 
 {% block content %}
+{% if document_list %}
 {% for document in document_list %}
 <a class="col-md-auto mb-5" href="{{ document.view_path }}">
     <div style="width: 18rem">
@@ -16,4 +17,7 @@
     </div>
 </a>
 {% endfor %}
+{% else %}
+<p class="text-center">Не найдено ни одного документа</p>
+{% endif %}
 {% endblock %}

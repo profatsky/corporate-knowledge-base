@@ -22,3 +22,5 @@ urlpatterns = [
     path('', include('staff.urls')),
     path('', include('materials.urls')),
 ]
+
+handler404 = 'config.views.page_not_found'
