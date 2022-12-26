@@ -10,7 +10,7 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
     login_url = 'login'
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user.pk)
+        return self.model.objects.filter(user=self.kwargs.get('pk'))
 
 
 class StaffView(LoginRequiredMixin, generic.ListView):
