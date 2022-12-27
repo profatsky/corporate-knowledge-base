@@ -1,8 +1,13 @@
 from django.db.models import Q
 from django.http import Http404
+from django.shortcuts import redirect
 from django.views import generic
 
 from .models import Catalog, Document
+
+
+def index(request):
+    return redirect('catalogs')
 
 
 class CatalogListView(generic.ListView):
