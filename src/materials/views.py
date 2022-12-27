@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import redirect
@@ -10,7 +11,7 @@ def index(request):
     return redirect('catalogs')
 
 
-class CatalogListView(generic.ListView):
+class CatalogListView(LoginRequiredMixin, generic.ListView):
     template_name = 'materials/catalogs.html'
     model = Catalog
     login_url = 'login'
@@ -23,7 +24,7 @@ class CatalogListView(generic.ListView):
         ).distinct()
 
 
-class DocumentListView(generic.ListView):
+class DocumentListView(LoginRequiredMixin, generic.ListView):
     template_name = 'materials/documents.html'
     model = Document
     login_url = 'login'
