@@ -7,7 +7,7 @@
 
 {% block content %}
 {% for employee in employee_list %}
-<a class="col-md-auto mb-5" href="{% url 'profile' employee.pk %}">
+<a class="col-md-auto mb-5" href="{% url 'profile' employee.user.pk %}">
     <div style="width: 18rem">
         <img src="{% static 'staff/img/employee.svg' %}" width="100" height="100" class="card-img-top">
         <div class="card-body">

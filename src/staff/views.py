@@ -9,8 +9,8 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
     login_url = 'login'
 
-    def get_queryset(self):
-        return self.model.objects.filter(user=self.kwargs.get('pk'))
+    def get_object(self, **kwargs):
+        return self.model.objects.get(user=self.kwargs.get('pk'))
 
 
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
