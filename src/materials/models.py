@@ -8,7 +8,7 @@ from .validators import validate_document_name_length, validate_name, validate_f
 
 
 def catalog_path(instance, filename):
-    return f"{instance.catalog.name}/{instance.name}{splitext(filename)[-1]}"
+    return f"{instance.catalog.name}/{instance.name.split('.')[:-1]}{splitext(filename)[-1]}"
 
 
 class Document(models.Model):
@@ -24,8 +24,8 @@ class Document(models.Model):
         validators=[
             validate_file_size,
             FileExtensionValidator(
-                ['docx', 'xls', 'pdf', 'pptx', 'ppt', 'pptm', 'png', 'jpeg'],
-                message=_('File Extension is not supported')
+                ['docx', 'xls', 'xlsx', 'pdf', 'pptx', 'ppt', 'pptm', 'png', 'jpeg', 'jpg'],
+                message=_('Данный формат файла не поддерживается')
             )
         ],
         verbose_name='Файл'
@@ -35,8 +35,12 @@ class Document(models.Model):
         verbose_name = 'Документ'
         verbose_name_plural = 'Документы'
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.name = f"{self.name}.{self.disk_path.name.split('.')[-1]}"
+        super().save(force_insert, force_update, using, update_fields)
+
     def __str__(self):
-        return str(self.name)
+        return self.name
 
 
 class Catalog(models.Model):
@@ -52,4 +56,4 @@ class Catalog(models.Model):
         verbose_name_plural = 'Каталоги'
 
     def __str__(self):
-        return str(self.name)
+        return self.name
