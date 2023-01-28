@@ -18,9 +18,9 @@ class CatalogListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Catalog.objects.all()
+            return self.model.objects.all()
         return self.model.objects.filter(
-            Q(document__is_private__lte=self.request.user.employee.extended_access)
+            document__is_private__lte=self.request.user.employee.extended_access
         ).distinct()
 
 
@@ -30,12 +30,12 @@ class DocumentListView(LoginRequiredMixin, generic.ListView):
     login_url = 'login'
 
     def get_queryset(self):
-        catalog = Catalog.objects.filter(pk=self.kwargs.get('catalog_pk'))
+        catalog = Catalog.objects.get(pk=self.kwargs.get('catalog_pk'))
         if not catalog:
             raise Http404
-        documents = Document.objects.filter(catalog__pk=catalog[0].pk)
+        documents = self.model.objects.filter(catalog__pk=catalog.pk)
         if not self.request.user.is_staff:
-            documents = documents.filter(Q(is_private__lte=self.request.user.employee.extended_access))
+            documents = documents.filter(is_private__lte=self.request.user.employee.extended_access)
             if not documents:
                 raise Http404
         doc_viewer_path = 'https://docs.yandex.ru/docs/view?url='
